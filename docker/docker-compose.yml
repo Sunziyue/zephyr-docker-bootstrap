@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: girl-team-mysql
+    environment:
+      MYSQL_DATABASE: girl_team
+      MYSQL_ROOT_PASSWORD: 59a9a928592c7381
+      MYSQL_USER: mysql
+      MYSQL_PASS: 1a7e9e9aa08c357c
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql/conf/my.cnf:/etc/mysql/my.cnf  
+      - ./mysql/logs:/var/log/mysql 
+      - ./mysql/data:/var/lib/mysql 
+
+  zookeeper: 
+    image: zookeeper:latest
+    container_name: girl-team-zookeeper
+    privileged: true
+    expose: 
+      - 2181
+    ports: 
+      - 2181:2181
