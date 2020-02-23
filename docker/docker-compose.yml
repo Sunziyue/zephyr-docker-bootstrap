@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql:latest
+    image: mysql:5.7.25
     container_name: girl-team-mysql
     environment:
       MYSQL_DATABASE: girl_team
@@ -20,7 +20,7 @@ services:
       - ./mysql/data:/var/lib/mysql 
 
   zookeeper: 
-    image: zookeeper:latest
+    image: zookeeper:3.4.10
     container_name: girl-team-zookeeper
     privileged: true
     expose: 
