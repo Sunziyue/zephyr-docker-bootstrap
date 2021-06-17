@@ -3,25 +3,24 @@ version: '3'
 services:
   mysql:
     image: mysql:5.7.25
-    container_name: girl-team-mysql
+    container_name: zephyr-mysql
     environment:
-      MYSQL_DATABASE: girl_team
-      MYSQL_ROOT_PASSWORD: 59a9a928592c7381
-      MYSQL_USER: mysql
-      MYSQL_PASS: 1a7e9e9aa08c357c
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD:-password}'
+      MYSQL_DATABASE: zephyr
     expose:
       - 3306
     ports:
-      - 3306:3306
-    command: --default-authentication-plugin=mysql_native_password
+      - '${MYSQL_PORT:-3306}:3306'
+    command: --default-authentication-plugin=mysql_native_password --innodb_use_native_aio=0
     volumes:
-      - ./mysql/conf/my.cnf:/etc/mysql/my.cnf  
-      - ./mysql/logs:/var/log/mysql 
-      - ./mysql/data:/var/lib/mysql 
+      - '${MYSQL_DIR}/conf/my.cnf:/etc/mysql/my.cnf'
+      - '${MYSQL_DIR}/logs:/var/log/mysql'
+      - '${MYSQL_DIR}/data:/var/lib/mysql'
 
   zookeeper: 
     image: zookeeper:3.4.10
-    container_name: girl-team-zookeeper
+    container_name: zephyr-zookeeper
     privileged: true
     expose: 
       - 2181
